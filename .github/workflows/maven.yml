@@ -31,7 +31,7 @@ jobs:
 
 
   deploy:
-    needs: build  # Ensures this only runs if 'build' succeeds
+    needs: build  
     runs-on: ubuntu-latest
 
     steps:
@@ -49,6 +49,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "target/*.jar"
           target: "/home/azureuser/deploy/"
-            sleep 10  
-            nohup java -jar /home/azureuser/deploy/*.jar > app.log 2>&1 &
+          
+
 
