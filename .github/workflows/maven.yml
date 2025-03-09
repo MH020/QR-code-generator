@@ -49,15 +49,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "target/*.jar"
           target: "/home/azureuser/deploy/"
-
-      - name: Restart App on VM
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            pkill -f 'java -jar' || true
             sleep 10  
             nohup java -jar /home/azureuser/deploy/*.jar > app.log 2>&1 &
 
