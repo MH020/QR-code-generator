@@ -58,5 +58,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             pkill -f 'java -jar' || true
+            sleep 10  
             nohup java -jar /home/azureuser/deploy/*.jar > app.log 2>&1 &
 
