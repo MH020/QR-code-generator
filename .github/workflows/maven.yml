@@ -57,33 +57,20 @@ jobs:
          username: ${{ secrets.VM_USER }}
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          script: |
-            set -e  # Stop the script on any error
-            
-            # Kill the existing process if it's running
-            if pgrep -f QRCodeGenerator-0.0.1-SNAPSHOT.jar; then
-            echo "Process found, killing..."
-            pkill -f QRCodeGenerator-0.0.1-SNAPSHOT.jar
-            else
-            echo "No running process found."
-            fi
-            
-            sleep 10  # Wait for the process to stop
-            
-            echo "Changing directory to /home/azureuser/deploy/target"
-            cd /home/azureuser/deploy/target || { echo "Directory not found!"; exit 1; }
-            
-            # Ensure the file exists
-            if [ ! -f QRCodeGenerator-0.0.1-SNAPSHOT.jar ]; then
-            echo "JAR file not found!"
-            exit 1
-            fi
-            
-            echo "Attempting to start the app..."
-            java -jar /home/azureuser/deploy/target/QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1
-            
-            echo "App started, check app.log for details"
-            exit 0
-
+          set -e  # Stop the script on any error
+          if pgrep -f QRCodeGenerator-0.0.1-SNAPSHOT.jar; then
+          echo "Process found, killing..."
+          pkill -f QRCodeGenerator-0.0.1-SNAPSHOT.jar
+          else
+          echo "No running process found."
+          fi
+          sleep 10
+          cd /home/azureuser/deploy/target
+          echo "Deploy directory exists."
+          java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1 
+          disown
+          echo "App restarted successfully!"
+          exit 0
           
 
 
