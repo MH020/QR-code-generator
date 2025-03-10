@@ -65,6 +65,7 @@ jobs:
           nohup java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
           disown
           echo "App restarted successfully!"
+          exit 0  
           
 
 
