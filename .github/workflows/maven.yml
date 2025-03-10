@@ -61,6 +61,7 @@ jobs:
           sleep 10  # Wait for the process to stop
           cd /home/azureuser/deploy/
           nohup java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+          disown  # Fully detach from SSH session
           echo "App restarted successfully!"
           
 
