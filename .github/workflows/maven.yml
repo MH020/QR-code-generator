@@ -63,7 +63,7 @@ jobs:
            
           sleep 10  # Wait for the process to stop
           cd /home/azureuser/deploy/
-          nohup setsid java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1 < /dev/null &
+          screen -dmS qrcode_app java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar
           echo "App restarted successfully!"
           
 
