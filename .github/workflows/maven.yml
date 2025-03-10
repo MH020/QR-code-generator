@@ -49,28 +49,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "target/*.jar"
           target: "/home/azureuser/deploy/"
-
-      - name: Restart App on VM
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-         host: ${{ secrets.VM_HOST }}
-         username: ${{ secrets.VM_USER }}
-         key: ${{ secrets.SSH_PRIVATE_KEY }}
-         script: |
-          set -e  # Stop the script on any error
-          if pgrep -f QRCodeGenerator-0.0.1-SNAPSHOT.jar; then
-          echo "Process found, killing..."
-          pkill -f QRCodeGenerator-0.0.1-SNAPSHOT.jar
-          else
-          echo "No running process found."
-          fi
-          sleep 10
-          cd /home/azureuser/deploy/target
-          echo "Deploy directory exists."
-          java -jar QRCodeGenerator-0.0.1-SNAPSHOT.jar > app.log 2>&1 
-          disown
-          echo "App restarted successfully!"
-          exit 0
+             
           
 
 
